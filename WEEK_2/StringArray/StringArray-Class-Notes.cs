@@ -2,9 +2,9 @@ using System;
 					
 namespace StringArray;
 
-    class Program
+    public class StringArrayClassNotes
     {
-        static void Main(string[] args)
+        public void Veda(string[] args)
         {              
             int student_one_grade = 97;
             int student_two_grade = 93;
@@ -26,13 +26,14 @@ namespace StringArray;
 			student_grades[2] = 100;
 			student_grades[3] = 85;
 			
-			int[] student_grades2 = {97,93,100,85};
+			int[] student_grades2 = {98,97,107,95};
 			
 			//Console.WriteLine(student_grades);
 			
 			for(int i = 0; i < 4; i++)
 			{
-				Console.WriteLine(student_grades[i]);	
+				Console.WriteLine(i);
+				Console.WriteLine(student_grades2[i]);	
 				
 			}
 					
