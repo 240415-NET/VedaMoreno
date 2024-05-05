@@ -24,17 +24,13 @@ class Program
 
     }
     public static int AddTwoNumbers(int a, int b)
-
     {
 
         return a + b;
     }
-
     public static int MultiplyTwoNumber(int a, int b)
-
     {
         return a * b;
     }
-
 
 }

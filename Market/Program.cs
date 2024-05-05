@@ -1,4 +1,4 @@
-﻿namespace Market;
+﻿namespace Store;
 
 class Program
 {

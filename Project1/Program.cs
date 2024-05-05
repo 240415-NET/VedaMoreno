@@ -1,4 +1,4 @@
-﻿namespace WEEK_2;
+﻿namespace Project1;
 
 class Program
 {
