@@ -20,13 +20,15 @@ Models
 1. User
 •	User Name (string)
 •	User ID (string)
+•	User ID (string)
 •	User Password (string)
+
 2. Showings
 •	Client Name (string)
-•	Client ID (string)
 •	Date  (DateTime)
 •	Time (DateTime)
 •	Address (string)
 •	City (stirng)
 •	State (string)
 •	Zip Code (int)
+
