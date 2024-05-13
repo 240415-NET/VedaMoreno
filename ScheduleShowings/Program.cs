@@ -1,4 +1,7 @@
-﻿using ScheduleShowings.Presentation;
+﻿// Bringing in the classes from Presentation and Model namespace to utilize here in program file
+using ScheduleShowings.Presentation;
+using ScheduleShowings.Models;
+
 
 namespace ScheduleShowings;
 
