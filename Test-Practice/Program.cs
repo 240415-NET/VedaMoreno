@@ -13,26 +13,23 @@ public class Solution
 
         }
 
-        //     string s = Console.ReadLine();
+        string s = Console.ReadLine();
 
-        //     bool isPalendrome = CheckForPalindrome(s);
-        //     string strIsPalendrome = isPalendrome.ToString();
-        //     string strLower = strIsPalendrome.ToLower();
-        //     Console.WriteLine(strLower);
-
-
-
-        // }
-
-        // public static bool CheckForPalindrome(string s)
-        // {
-
-        //      return s.SequenceEqual(s.Reverse());
-
+        bool isPalendrome = CheckForPalindrome(s);
+        string strIsPalendrome = isPalendrome.ToString();
+        string strLower = strIsPalendrome.ToLower();
+        Console.WriteLine(strLower);
     }
 
+    // public static bool CheckForPalindrome(string s)
+    // {
+
+    //      return s.SequenceEqual(s.Reverse());
 
 }
+
+
+
 
 
 

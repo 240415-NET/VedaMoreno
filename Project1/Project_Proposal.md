@@ -15,15 +15,16 @@ Features/User Stories:
 •	As a User I want to have the UI display a main menu. 
 •	As a User I want to have the ability to create a new User profile/account. 
 •	As a User I want to have the ability to log into my existing profile/account. 
-•	As a User I want to view my client daily showings. 
+
 Models
 1. User
 •	User Name (string)
 •	User ID (string)
 •	User ID (string)
-•	User Password (string)
+
 
 2. Showings
+	As a User I want to view my client daily showings.
 •	Client Name (string)
 •	Date  (DateTime)
 •	Time (DateTime)
@@ -31,4 +32,4 @@ Models
 •	City (stirng)
 •	State (string)
 •	Zip Code (int)
-
+ 
