@@ -1,4 +1,5 @@
 
+using ScheduleShowings.Controllers;
 using ScheduleShowings.Models;
 
 namespace ScheduleShowings.Presentation;
@@ -61,6 +62,52 @@ public class UserMenu // Class that holds the UI display/menu for creating a new
 
     }
 
+    public void CreateUserMenu() //Method that creates the New User profile/account
+    {
+            string userInput = "";//declared and inititalized userInput object
+            bool validInput = true;
+            do
+            {
+                    Console.WriteLine("Please create and enter a Username:  "); //Prompting User to create and input a User 
+                    
+                    //?? is a null-caolescing operating, it's used to ensure if the user input shows to be null, then we set it to an empty string.
+                    //in turn, preventing the user input to ever be null
+                    userInput = Console.ReadLine() ?? ""; 
+
+                    userInput = userInput.Trim(); //Use the Trim method to trim the string whereas it removes any beginning or ending spaces
+
+                    if(String.IsNullOrEmpty(userInput)) //verifies if User input is null or an empty string
+                    {
+                            validInput = false; 
+                            Console.WriteLine("Username cannot be empty or blank, please try entering a Username again");
+                    }
+                    else if(UserController.UserExists(userInput))
+                    {
+                        //verify if User exists already by calling the UserController, User Exists method.
+                        validInput = false; 
+                        Console.WriteLine("User name already exists, please use another username");
+
+                    }
+                    else
+                    {
+                            //call UserController method CreateNewUser to create a new User profile
+                            validInput = true;
+                            UserController.CreateNewUser(userInput);
+                            Console.WriteLine("Success! Profile has been created");
+                    }
+            }while(!validInput); //the do while will continue to loop until validInput is true/valid
+    }
+    
+    public void UserLoginMenu() //Method that creates the Return User Log in Menu
+    {
+        string userInput = "";//declared and inititalized userInput object
+        bool validInput = true;
+
+        
+        
+    }
+
+    
 }
 
 
