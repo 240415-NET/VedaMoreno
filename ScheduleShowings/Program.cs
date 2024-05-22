@@ -11,7 +11,7 @@ class Program
     {
         
         UserMenu userMenu = new UserMenu(); //instantiating the UserMenu class in the UserMenu.cs file by giving the UserMenu a new value
-        userMenu.DisplayMenu(); //Using the new userMenu object and the period, then calling the DisplayMenu method which is located in the User Menu class.
+        userMenu.StartMenu(); //Using the new userMenu object and the period, then calling the DisplayMenu method which is located in the User Menu class.
 
     }
 }
