@@ -31,13 +31,17 @@ public class UserMenu // Class that holds the UI display/menu for creating a new
                 switch (userSelection)
                 {
                     case 1:  //Create a New User profile
-                        CreateUserMenu();
-
+                        User createdUser = CreateUserMenu();
+                        ShowingMenu.ShowingFunctionMenu(createdUser);
+                        validInput = true;
                         break;
 
                     case 2:
 
-                        // UserLoginMenu(); //Log In for a Return User
+                        User loginUser = UserLoginMenu();
+                        ShowingMenu.ShowingFunctionMenu(loginUser);
+                        validInput = true;
+                         //Log In for a Return User
                         break;
 
                     case 3: //User selects to Exit the program
@@ -62,7 +66,7 @@ public class UserMenu // Class that holds the UI display/menu for creating a new
 
     }
 
-    public void CreateUserMenu() //Method that creates the New User profile/account
+    public User CreateUserMenu() //Method that creates the New User profile/account
     {
         string userInput = "";//declared and inititalized userInput object
         bool validInput = false;
@@ -91,48 +95,55 @@ public class UserMenu // Class that holds the UI display/menu for creating a new
             {
                 //call UserController method CreateNewUser to create a new User profile
                 validInput = true;
-                UserController.CreateNewUser(userInput);
+                User newUser = UserController.CreateNewUser(userInput);
                 Console.WriteLine("Success! Profile has been created");
+                return newUser;
+
             }
         } while (!validInput); //the do while will continue to loop until validInput is true/valid
+
+        return new User();
     }
 
-    // public void UserLoginMenu() //Method that creates the Return User Log in Menu
-    // {
-    //     string userInput = "";//declared and inititalized userInput object with type being string
-    //     bool validInput = false;
+    public User UserLoginMenu() //Method that creates the Return User Log in Menu
+    {
+        string userInput = "";//declared and inititalized userInput object with type being string
+        bool validInput = false;
 
-    //     do
-    //     {
-    //         Console.WriteLine("Please enter your Username:  "); //Prompting Return User to input their User Name
+        do
+        {
+            Console.WriteLine("Please enter your Username:  "); //Prompting Return User to input their User Name
 
-    //         userInput = Console.ReadLine();
+            userInput = Console.ReadLine();
 
-    //         userInput = userInput.Trim(); //Use the Trim method to trim the string whereas it removes any beginning or ending spaces
+            userInput = userInput.Trim(); //Use the Trim method to trim the string whereas it removes any beginning or ending spaces
 
-    //         if (String.IsNullOrEmpty(userInput)) //verifies if User input is null or an empty string
-    //         {
-    //             validInput = false;
-    //             Console.WriteLine("Username cannot be empty or blank, please try entering another Username again");
-    //         }
-    //         else if (UserController.UserExists(userInput)) //verify if User exists already by calling the UserController class, User Exists method.
-    //         {
+            if (String.IsNullOrEmpty(userInput)) //verifies if User input is null or an empty string
+            {
+                validInput = false;
+                Console.WriteLine("Username cannot be empty or blank, please try entering another Username again");
+            }
+            else if (!UserController.UserExists(userInput)) //verify if User exists already by calling the UserController class, User Exists method.
+            {
 
-    //             validInput = false; //verifies that Username does not exist and informs the user to use another Username
-    //             Console.WriteLine("Username does not exist, please use another username");
+                validInput = false; //verifies that Username does not exist and informs the user to use another Username
+                Console.WriteLine("Username does not exist, please use another username");
 
-    //         }
-    //         else //if neither check triggers, then we call the ReturnUser method from the User Controller
-    //         {
-    //             //call UserController, and ReturnUser method to return User information
-    //             validInput = true;
-    //             User existingUser = UserController.ReturnUser(userInput);
-    //             Console.WriteLine("Successful,  you are now logged in");
-    //             Console.WriteLine($"Username:   {existingUser.userName}");
-    //             Console.WriteLine($"User ID:  {existingUser.userID}");
-    //         }
-    //     } while (!validInput); //the do while will continue to loop until validInput is true/valid
-    // }
+            }
+            else //if neither check triggers, then we call the ReturnUser method from the User Controller
+            {
+                //call UserController, and ReturnUser method to return User information
+                validInput = true;
+                User existingUser = UserController.ReturnUser(userInput);
+                Console.WriteLine("Successful,  you are now logged in");
+                Console.WriteLine($"Username:   {existingUser.userName}");
+                Console.WriteLine($"User ID:  {existingUser.userId}");
+                return existingUser;
+            }
+        } while (!validInput); //the do while will continue to loop until validInput is true/valid
+
+        return new User();
+    }
 
 
 }

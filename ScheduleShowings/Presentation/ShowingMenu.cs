@@ -4,7 +4,7 @@ using ScheduleShowings.Models;
 
 namespace ScheduleShowings.Presentation;
 
-public class ItemMenu
+public class ShowingMenu
 {
 
     public static void ShowingFunctionMenu(User user)
@@ -12,13 +12,14 @@ public class ItemMenu
         string userInput;
         bool validInput = false;
 
-        Console.Clear();
 
-        Console.Write("Please select from the following options:\n1. View List of Showings\n2. Add Showing\n3. Remove Showing\n4. Exit Program");
         try
         {
             do
             {
+                Console.Clear();
+
+                Console.Write("Please select from the following options:\n1. View List of Showings\n2. Add Showing\n3. Remove Showing\n4. Exit Program");
                 userInput = Console.ReadLine().Trim().ToLower();
                 switch (userInput)
                 {
@@ -51,9 +52,19 @@ public class ItemMenu
                         // Console.WriteLine(ViewAllItems(user.userId,1,"Which item would you like to delete?"));
                         // ItemController.RemoveItem(ViewAllItems(user.userId, 1, "Which item/showing would you like to delete?"), user);
                         break;
+                      case "4":
+                    case "4.":
+                    case "4. exit":
+                    case "4. exit program":
+                    case "exit":
+                    case "exit program": 
+                        return;
+                    break;
+
                     default:
                         Console.WriteLine("Please key a valid option");
                         break;
+                    
 
                 }
             }
@@ -88,7 +99,7 @@ public class ItemMenu
                 state = Console.ReadLine().Trim();
                 Console.WriteLine("Please enter the date of your showing, please enter the format ie: 01/01/2025");
                 showingDate = DateTime.Parse(Console.ReadLine().Trim());
-                Console.WriteLine("Please enter the time of your showing, please enter the format ie:") ;
+                Console.WriteLine("Please enter the time of your showing, please enter the format ie:");
                 showingTime = DateTime.Parse(Console.ReadLine().Trim());
                 entrySuccess = true;
                 // ItemController.CreateItem(user, streetAddress, city, state, zip, showingDate, showingTime);
