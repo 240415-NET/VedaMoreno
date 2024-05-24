@@ -3,6 +3,7 @@ using ScheduleShowings.Models;
 // using ScheduleShowings.DataAccess;
 using ScheduleShowings.Presentation;
 using System.Diagnostics.Contracts;
+using ScheduleShowings.Data;
 
 
 namespace ScheduleShowings.Controllers;
@@ -10,7 +11,20 @@ namespace ScheduleShowings.Controllers;
 
 public class ShowingController
 {
+    public static SQLShowingStorage showingData = new SQLShowingStorage();
 
+    //created a SQL showing storage object, this object has a method called FindShowing
+    //that takes in a parameter of Guid Id
+    public List<Showing> FindShowingForUser(Guid userId)
+    {
+        List<Showing> showings = showingData.FindShowing(userId);
+        return showings;
+    }
+
+    public void AddShowing(Showing newShowing)
+    {
+        showingData.StoreShowing(newShowing);
+    }
     // private static IShowingsStorageRepo _itemData = new JsonShowingsStorage();
 
     // public static void CreateItem(User user, string category, double originalCost, DateTime purchaseDate, string description)
@@ -20,7 +34,7 @@ public class ShowingController
 
     //     _itemData.StoreItem(newItem);
     // }
-  
+
     // public static void CreatePet(User user, string category, double originalCost, DateTime purchaseDate, string description, string petName, string petSpecies, int petAge)
     // {
     //     //Creating the item
@@ -28,7 +42,7 @@ public class ShowingController
 
     //     _itemData.StoreItem(newPet);
     // }
-  
+
     // public static void CreateDocument(User user, string category, double originalCost, DateTime purchaseDate, string description, string documentType, DateTime expirationDate)
     // {
     //     //Creating the item
@@ -36,17 +50,17 @@ public class ShowingController
 
     //     _itemData.StoreItem(newDocument);
     // }
-  
+
     // public static List<Item> GetAllItems(Guid userID)
     // {
     //     return _itemData.GetItems(userID, 4);
     // }
-  
+
     // public static List<Item> GetItems(Guid userID)
     // {
     //     return _itemData.GetItems(userID, 1);
     // }
-  
+
     // public static List<Pet> GetPets(Guid userID)
     // {
     //     List<Item> startingList = new();
@@ -58,7 +72,7 @@ public class ShowingController
     //     }
     //     return returnList;
     // }
-  
+
     // public static List<Document> GetDocuments(Guid userID)
     // {
     //     List<Item> startingList = new();

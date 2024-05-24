@@ -1,3 +1,4 @@
+using System.Security.Cryptography.X509Certificates;
 using ScheduleShowings.Controllers;
 using ScheduleShowings.Models;
 
@@ -6,10 +7,14 @@ namespace ScheduleShowings.Presentation;
 
 public class ShowingMenu
 {
+    //created a new object called 'showingController' of the Showing Controller class used in the Showing Controller file. 
+    // this showingController object can now be used within this Showing Menu class.
+    public static ShowingController showingController = new ShowingController();
+
 
     public static void ShowingFunctionMenu(User user)
     {
-        string userInput;
+        int userInput;
         bool validInput = false;
 
 
@@ -19,52 +24,42 @@ public class ShowingMenu
             {
                 Console.Clear();
 
-                Console.Write("Please select from the following options:\n1. View List of Showings\n2. Add Showing\n3. Remove Showing\n4. Exit Program");
-                userInput = Console.ReadLine().Trim().ToLower();
+                Console.Write("Please select from the following options:\n1. View List of Showings\n2. Add Showing\n3. Remove Showing\n4. Exit Program\n");
+                userInput = Convert.ToInt16(Console.ReadLine());
+
                 switch (userInput)
                 {
-                    case "1":
-                    case "1.":
-                    case "1. list":
-                    case "1. list showing":
-                    case "list":
-                    case "list showing":
-                        ViewItemMenu(user.userId);
+
+                    case 1: //List of Showings for end user
+                        List<Showing> showings = showingController.FindShowingForUser(user.userId);
+                        foreach (Showing show in showings)
+                        {
+                            Console.WriteLine(show.ToString());
+                        }
                         validInput = true;
                         break;
-                    case "2":
-                    case "2.":
-                    case "2. new":
-                    case "2. new showing":
-                    case "new":
-                    case "new showing":
+                    case 2: //Add Showing for end user
                         validInput = true;
-                        NewShowingItem(user);
+                        Showing newShowing = NewShowingItem(user);
+                        showingController.AddShowing(newShowing);
                         break;
-                    case "3":
-                    case "3.":
-                    case "3. remove":
-                    case "3. remove showing":
-                    case "remove":
-                    case "remove showing":
+              
+                    case 3: //Remove Showing for end user
                         validInput = true;
 
                         // Console.WriteLine(ViewAllItems(user.userId,1,"Which showing record would you like to delete?"));
                         // ItemController.RemoveItem(ViewAllItems(user.userId, 1, "Which item/showing would you like to delete?"), user);
                         break;
-                      case "4":
-                    case "4.":
-                    case "4. exit":
-                    case "4. exit program":
-                    case "exit":
-                    case "exit program": 
+               
+                    case 4: //Exit program for end user
                         return;
-                    break;
+                        break;
+
 
                     default:
                         Console.WriteLine("Please key a valid option");
                         break;
-                    
+
 
                 }
             }
@@ -76,10 +71,10 @@ public class ShowingMenu
             Console.WriteLine(e.Message);
         }
     }
-    public static void NewShowingItem(User user)
+    public static Showing NewShowingItem(User user)
     {
         bool entrySuccess = false;
-
+        
         do
         {
             try
@@ -88,9 +83,12 @@ public class ShowingMenu
                 string showingCity;
                 string showingState;
                 string showingZip;
-                DateTime showingDate;
-                DateTime showingTime;
+                string showingDate;
+                string showingTime;
+                string showingName;
 
+                Console.WriteLine("Please enter a showing Name for your showing:  ie, Broadway");
+                showingName = Console.ReadLine().Trim();
                 Console.WriteLine("Please enter the street address for your showing. (ie:  123 Main St.)");
                 showingAddress = Console.ReadLine().Trim();
                 Console.WriteLine("Please enter the city for your showing");
@@ -99,17 +97,20 @@ public class ShowingMenu
                 showingState = Console.ReadLine().Trim();
                 Console.WriteLine("Please enter the zip code for your showing, (ie:  10027)");
                 showingZip = Console.ReadLine().Trim();
-                Console.WriteLine("Please enter the date of your showing, please enter the format YYYY/MM/DD");
-                showingDate = DateTime.Parse(Console.ReadLine().Trim());
-                Console.WriteLine("Please enter the time of your showing, please enter the format ie:");
-                showingTime = DateTime.Parse(Console.ReadLine().Trim());
+                Console.WriteLine("Please enter the date of your showing, please enter the format MM/DD/YYYY");
+                showingDate = Console.ReadLine().Trim();
+                Console.WriteLine("Please enter the time of your showing, please enter the format ie: 08:00 AM or PM");
+                showingTime = Console.ReadLine().Trim();
                 entrySuccess = true;
-                // ItemController.CreateItem(user, showingAddress, showingCity, showingState, showingZip, showingDate, showingTime);
+                Showing nShowing = new Showing(user.userId, showingName, showingDate, showingTime, showingAddress, showingCity, showingState, showingZip); 
+                // Guid userId, string showingName, string showingDate, string showingTime, string showingAddress, string showingCity, string showingState, string showingZip
+                return nShowing;
             }
             catch (Exception e)
             {
                 Console.Clear();
                 Console.WriteLine("Please key in a valid input!");
+                return null;
             }
         }
         while (entrySuccess == false);

@@ -10,6 +10,7 @@ public class SQLShowingStorage
     public List<Showing> FindShowing(Guid userId)
 
     {
+        
         List<Showing> foundShowing = new List<Showing>();
 
 
@@ -22,7 +23,7 @@ public class SQLShowingStorage
             connection.Open();
 
             //We start creating our command/Query text
-            string cmdText = @"SELECT ShowingId, userId, showingName, showingDate,  showingTime,  showingAddress,  showingCity,  showingState,  showingZip)
+            string cmdText = @"SELECT ShowingId, userId, showingName, showingDate,  showingTime,  showingAddress,  showingCity,  showingState,  showingZip
                                 FROM dbo.SHOWING
                                 WHERE userId=@userToFind;";
 
@@ -85,7 +86,7 @@ public class SQLShowingStorage
         return null;
 
     }
-    public void StoreUser(User user)
+    public void StoreShowing(Showing newShowing)
     {
         //Create a SQLConnection object to be able to connect to our Database.
         //we want this object to be "disposable" - that is to say, we want it to be destroyed or dereferenced
@@ -98,8 +99,8 @@ public class SQLShowingStorage
         //After this, we start to create our command, we can do this with a templated string as shown below.
         //Doing this we can avoid any issues with SQL Injection, as well as not have to mess with 
         //manual string concatenation 
-        string cmdText = @"INSERT INTO dbo.USERS (userId, userName)
-                            VALUES (@userId, @userName);";
+        string cmdText = @"INSERT INTO SHOWING (ShowingId, userId, ShowingName, ShowingDate,  ShowingTime,  ShowingAddress,  ShowingCity,  ShowingState,  ShowingZip)
+                            VALUES (@ShowingId, @userId, @showingName, @showingDate,  @showingTime,  @showingAddress,  @showingCity, @showingState, @showingZip);"; 
 
         //We use the connection we created and opened, as well as the command text template we created above
         //to create a new SqlCommand object that we will eventually send to do stuff on our database. 
@@ -109,8 +110,15 @@ public class SQLShowingStorage
         //to fill out the templated INSERT command string
         //We call this a little differently than other instance methods, because we are reaching deeper into
         //the cmd object. 
-        cmd.Parameters.AddWithValue("@userId", user.userId);
-        cmd.Parameters.AddWithValue("@userName", user.userName);
+        cmd.Parameters.AddWithValue("@ShowingId", newShowing.showingId);
+        cmd.Parameters.AddWithValue("@userId", newShowing.userId);
+        cmd.Parameters.AddWithValue("@showingName", newShowing.showingName);
+        cmd.Parameters.AddWithValue("@showingDate", newShowing.showingDate);
+        cmd.Parameters.AddWithValue("@showingTime", newShowing.showingTime);
+        cmd.Parameters.AddWithValue("@showingAddress", newShowing.showingAddress);
+        cmd.Parameters.AddWithValue("@showingCity", newShowing.showingCity);
+        cmd.Parameters.AddWithValue("@showingState", newShowing.showingState);
+        cmd.Parameters.AddWithValue("@showingZip", newShowing.showingZip);
 
         //We then execute our INSERT statement that we created and fleshed out above by running
         //the instance method ExecuteNonQuery() off of our cmd object
@@ -119,6 +127,11 @@ public class SQLShowingStorage
         //Once that is done, we simply close the connection
         connection.Close();
 
+    }
+
+    public static void RemoveShowing()
+    {
+        
     }
 
 }
