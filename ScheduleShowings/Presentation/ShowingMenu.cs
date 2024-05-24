@@ -26,30 +26,30 @@ public class ShowingMenu
                     case "1":
                     case "1.":
                     case "1. list":
-                    case "1. list items":
+                    case "1. list showing":
                     case "list":
-                    case "list items":
+                    case "list showing":
                         ViewItemMenu(user.userId);
                         validInput = true;
                         break;
                     case "2":
                     case "2.":
                     case "2. new":
-                    case "2. new item":
+                    case "2. new showing":
                     case "new":
-                    case "new item":
+                    case "new showing":
                         validInput = true;
                         NewShowingItem(user);
                         break;
                     case "3":
                     case "3.":
                     case "3. remove":
-                    case "3. remove item":
+                    case "3. remove showing":
                     case "remove":
-                    case "remove item":
+                    case "remove showing":
                         validInput = true;
 
-                        // Console.WriteLine(ViewAllItems(user.userId,1,"Which item would you like to delete?"));
+                        // Console.WriteLine(ViewAllItems(user.userId,1,"Which showing record would you like to delete?"));
                         // ItemController.RemoveItem(ViewAllItems(user.userId, 1, "Which item/showing would you like to delete?"), user);
                         break;
                       case "4":
@@ -84,25 +84,27 @@ public class ShowingMenu
         {
             try
             {
-                string streetAddress;
-                string city;
-                string state;
-                string zip;
+                string showingAddress;
+                string showingCity;
+                string showingState;
+                string showingZip;
                 DateTime showingDate;
                 DateTime showingTime;
 
                 Console.WriteLine("Please enter the street address for your showing. (ie:  123 Main St.)");
-                streetAddress = Console.ReadLine().Trim();
+                showingAddress = Console.ReadLine().Trim();
                 Console.WriteLine("Please enter the city for your showing");
-                city = Console.ReadLine().Trim();
-                Console.WriteLine("Please enter the state for your showing, ie:  IN");
-                state = Console.ReadLine().Trim();
-                Console.WriteLine("Please enter the date of your showing, please enter the format ie: 01/01/2025");
+                showingCity = Console.ReadLine().Trim();
+                Console.WriteLine("Please enter the state for your showing, (ie:  IN)");
+                showingState = Console.ReadLine().Trim();
+                Console.WriteLine("Please enter the zip code for your showing, (ie:  10027)");
+                showingZip = Console.ReadLine().Trim();
+                Console.WriteLine("Please enter the date of your showing, please enter the format YYYY/MM/DD");
                 showingDate = DateTime.Parse(Console.ReadLine().Trim());
                 Console.WriteLine("Please enter the time of your showing, please enter the format ie:");
                 showingTime = DateTime.Parse(Console.ReadLine().Trim());
                 entrySuccess = true;
-                // ItemController.CreateItem(user, streetAddress, city, state, zip, showingDate, showingTime);
+                // ItemController.CreateItem(user, showingAddress, showingCity, showingState, showingZip, showingDate, showingTime);
             }
             catch (Exception e)
             {

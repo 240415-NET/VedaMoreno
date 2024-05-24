@@ -8,7 +8,7 @@ using System.Diagnostics.Contracts;
 namespace ScheduleShowings.Controllers;
 
 
-public class ItemController
+public class ShowingController
 {
 
     // private static IShowingsStorageRepo _itemData = new JsonShowingsStorage();
