@@ -46,16 +46,16 @@ public class ShowingMenu
               
                     case 3: //Remove Showing for end user
                         validInput = true;
-
+                        // Console.WriteLine(showingController.FindShowingForUser(user.userId, 1, "Which showing would you like to delete?"));
                         // Console.WriteLine(ViewAllItems(user.userId,1,"Which showing record would you like to delete?"));
                         // ItemController.RemoveItem(ViewAllItems(user.userId, 1, "Which item/showing would you like to delete?"), user);
                         break;
                
                     case 4: //Exit program for end user
+                        validInput = true;
+                        Console.WriteLine($"You are now exiting the showing program.");
                         return;
-                        break;
-
-
+                    
                     default:
                         Console.WriteLine("Please key a valid option");
                         break;

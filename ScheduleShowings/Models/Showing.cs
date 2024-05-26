@@ -50,7 +50,7 @@ public class Showing
 
     public override string ToString()
     {
-        return $"Showing ID: {showingId}\nUser ID: {userId}\nShowing Name: {showingName}\nDate: {showingDate}\nTime: {showingTime}\nAddress: {showingAddress}\nCity: {showingCity}\nState: {showingState}\nZip: {showingZip}";
+        return $"\nShowing ID: {showingId}\nUser ID: {userId}\nShowing Name: {showingName}\nDate: {showingDate}\nTime: {showingTime}\nAddress: {showingAddress}\nCity: {showingCity}\nState: {showingState}\nZip: {showingZip}\n";
     }
     // public string AbbrToString()
     // {
