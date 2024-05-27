@@ -17,15 +17,15 @@ public class ShowingMenu
         int userInput;
         bool validInput = false;
 
-
         try
         {
             do
             {
-                Console.Clear();
+                // Console.Clear();
 
                 Console.Write("Please select from the following options:\n1. View List of Showings\n2. Add Showing\n3. Remove Showing\n4. Exit Program\n");
                 userInput = Convert.ToInt16(Console.ReadLine());
+                string removeInput = "";
 
                 switch (userInput)
                 {
@@ -43,19 +43,49 @@ public class ShowingMenu
                         Showing newShowing = NewShowingItem(user);
                         showingController.AddShowing(newShowing);
                         break;
-              
+
                     case 3: //Remove Showing for end user
                         validInput = true;
-                        // Console.WriteLine(showingController.FindShowingForUser(user.userId, 1, "Which showing would you like to delete?"));
+                        Console.WriteLine("Please enter the showing name you would like to delete?");
+                        List<Showing> showingList = showingController.FindShowingForUser(user.userId);
+                        foreach (Showing show in showingList)
+                        {
+                            Console.WriteLine(show.ToString());
+                        }
+                        removeInput = Console.ReadLine();
+                        Console.WriteLine();
+
+                        int countNotMatching = 0;
+                        foreach (Showing show in showingList)
+
+                        {
+                            if (removeInput == show.showingName)
+                            {
+                                showingController.RemoveShowing(show);
+                                Console.WriteLine($"Showing: {show.showingName} successfully deleted");
+                            }
+                            else if(show.showingName != removeInput)
+
+                            {
+                                countNotMatching = countNotMatching +1;
+                            }
+                            
+                        }
+                        if(countNotMatching == showingList.Count)                            
+
+                        {
+                            Console.WriteLine("Showing was not successfully deleted");
+                        }
+
                         // Console.WriteLine(ViewAllItems(user.userId,1,"Which showing record would you like to delete?"));
                         // ItemController.RemoveItem(ViewAllItems(user.userId, 1, "Which item/showing would you like to delete?"), user);
                         break;
-               
+
                     case 4: //Exit program for end user
                         validInput = true;
                         Console.WriteLine($"You are now exiting the showing program.");
                         return;
-                    
+
                     default:
                         Console.WriteLine("Please key a valid option");
                         break;
@@ -74,7 +104,7 @@ public class ShowingMenu
     public static Showing NewShowingItem(User user)
     {
         bool entrySuccess = false;
-        
+
         do
         {
             try
@@ -102,7 +132,7 @@ public class ShowingMenu
                 Console.WriteLine("Please enter the time of your showing, please enter the format ie: 08:00 AM or PM");
                 showingTime = Console.ReadLine().Trim();
                 entrySuccess = true;
-                Showing nShowing = new Showing(user.userId, showingName, showingDate, showingTime, showingAddress, showingCity, showingState, showingZip); 
+                Showing nShowing = new Showing(user.userId, showingName, showingDate, showingTime, showingAddress, showingCity, showingState, showingZip);
                 // Guid userId, string showingName, string showingDate, string showingTime, string showingAddress, string showingCity, string showingState, string showingZip
                 return nShowing;
             }

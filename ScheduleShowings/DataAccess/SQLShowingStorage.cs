@@ -10,7 +10,7 @@ public class SQLShowingStorage
     public List<Showing> FindShowing(Guid userId)
 
     {
-        
+
         List<Showing> foundShowing = new List<Showing>();
 
 
@@ -100,7 +100,7 @@ public class SQLShowingStorage
         //Doing this we can avoid any issues with SQL Injection, as well as not have to mess with 
         //manual string concatenation 
         string cmdText = @"INSERT INTO SHOWING (ShowingId, userId, ShowingName, ShowingDate,  ShowingTime,  ShowingAddress,  ShowingCity,  ShowingState,  ShowingZip)
-                            VALUES (@ShowingId, @userId, @showingName, @showingDate,  @showingTime,  @showingAddress,  @showingCity, @showingState, @showingZip);"; 
+                            VALUES (@ShowingId, @userId, @showingName, @showingDate,  @showingTime,  @showingAddress,  @showingCity, @showingState, @showingZip);";
 
         //We use the connection we created and opened, as well as the command text template we created above
         //to create a new SqlCommand object that we will eventually send to do stuff on our database. 
@@ -129,9 +129,33 @@ public class SQLShowingStorage
 
     }
 
-    public static void RemoveShowing()
+    public void RemoveShowing(Showing newShowing)
     {
-        
+        using SqlConnection connection = new SqlConnection(connectionString);
+
+        connection.Open();
+
+        string cmdText = @"DELETE FROM SHOWING 
+                            WHERE showingName=@showingName";
+
+        using SqlCommand cmd = new SqlCommand(cmdText, connection);
+
+        // cmd.Parameters.AddWithValue("@ShowingId", newShowing.showingId);
+        // cmd.Parameters.AddWithValue("@userId", newShowing.userId);
+        cmd.Parameters.AddWithValue("@showingName", newShowing.showingName);
+        // cmd.Parameters.AddWithValue("@showingDate", newShowing.showingDate);
+        // cmd.Parameters.AddWithValue("@showingTime", newShowing.showingTime);
+        // cmd.Parameters.AddWithValue("@showingAddress", newShowing.showingAddress);
+        // cmd.Parameters.AddWithValue("@showingCity", newShowing.showingCity);
+        // cmd.Parameters.AddWithValue("@showingState", newShowing.showingState);
+        // cmd.Parameters.AddWithValue("@showingZip", newShowing.showingZip);
+
+        cmd.ExecuteNonQuery();
+
+        connection.Close();
+
+
+
     }
 
 }
