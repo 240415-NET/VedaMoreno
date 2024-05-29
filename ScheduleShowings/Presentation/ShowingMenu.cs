@@ -92,6 +92,11 @@ public class ShowingMenu
 
 
                 }
+
+                if(validInput == true)
+                {
+                ShowingFunctionMenu(user);
+                }
             }
             while (validInput == false);
         }
