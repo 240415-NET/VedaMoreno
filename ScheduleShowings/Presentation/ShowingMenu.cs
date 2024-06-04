@@ -1,3 +1,4 @@
+using System.Net;
 using System.Security.Cryptography.X509Certificates;
 using ScheduleShowings.Controllers;
 using ScheduleShowings.Models;
@@ -12,78 +13,77 @@ public class ShowingMenu
     public static ShowingController showingController = new ShowingController();
 
 
-    public static void ShowingFunctionMenu(User user)
+    public static void ShowingFunctionMenu(User user)//Create Method ShowingFunctionMenu which provides the functionality for User to have a menu for selection of options
     {
-        int userInput;
-        bool validInput = false;
-
+        int userInput; //declare userInput object
+        bool validInput = false;  //logic for validating whether User input is valid or not
         try
         {
             do
             {
-                // Console.Clear();
 
                 Console.Write("Please select from the following options:\n1. View List of Showings\n2. Add Showing\n3. Remove Showing\n4. Exit Program\n");
-                userInput = Convert.ToInt16(Console.ReadLine());
-                string removeInput = "";
+                //Console output to User to select a showing option
+                userInput = Convert.ToInt16(Console.ReadLine()); //Console reads the userInput and string is converted to Integer
+                string removeInput = ""; //declare and intialize removeInput
 
-                switch (userInput)
+                switch (userInput)  //switch statement used for determining user input cases
                 {
 
                     case 1: //List of Showings for end user
-                        List<Showing> showings = showingController.FindShowingForUser(user.userId);
-                        foreach (Showing show in showings)
+                        List<Showing> showings = showingController.FindShowingForUser(user.userId); //Create List of showings object which the FindShowingForUser method is called in the showing Controller with passing one argument 
+                        foreach (Showing show in showings)  //foreach loop to process each item in the showings list
                         {
-                            Console.WriteLine(show.ToString());
+                            Console.WriteLine(show.ToString()); //Console output of list of showings and convert output to String 
                         }
-                        validInput = true;
-                        break;
-                    case 2: //Add Showing for end user
-                        validInput = true;
-                        Showing newShowing = NewShowingItem(user);
-                        showingController.AddShowing(newShowing);
+                        validInput = true;  //logic for validating whether User input is valid or not
                         break;
 
-                    case 3: //Remove Showing for end user
-                        validInput = true;
-                        Console.WriteLine("Please enter the showing name you would like to delete?");
-                        List<Showing> showingList = showingController.FindShowingForUser(user.userId);
-                        foreach (Showing show in showingList)
+                    case 2: //Add Showing for end user
+                        validInput = true;  //logic for validating whether User input is valid or not
+                        Showing newShowing = NewShowingItem(user);  //Create newshowing object which the NewShowingItem method is called (below) with passing one argument 
+                        showingController.AddShowing(newShowing);  //Calls the AddShowing method in showing Controller 
+                        break;
+
+                    case 3:  //Remove a showing
+                        validInput = true;  //logic for validating whether User input is valid or not
+                        Console.WriteLine("Please enter the showing name you would like to delete?");  //Console output to User to input showing name to delete
+                        List<Showing> showingList = showingController.FindShowingForUser(user.userId);  //Create List of showingList object which the FindShowingForUser method is called in the showing Controller with passing one argument 
+                        foreach (Showing show in showingList)  //foreach loop to process each item in the showinglist
+
                         {
-                            Console.WriteLine(show.ToString());
+                            Console.WriteLine(show.ToString());  //Console output of list of showings and convert output to String 
                         }
-                        removeInput = Console.ReadLine();
+                        removeInput = Console.ReadLine();  //Console reads the line and removes the showing user input (removeInput)
                         Console.WriteLine();
 
-                        int countNotMatching = 0;
-                        foreach (Showing show in showingList)
+                        int countNotMatching = 0;  //declare and assign countMatching object
+                        foreach (Showing show in showingList)  //foreach loop to process each item in the showinglist
 
                         {
-                            if (removeInput == show.showingName)
+                            if (removeInput == show.showingName)  //remove showingName if = to removeInput 
                             {
-                                showingController.RemoveShowing(show);
-                                Console.WriteLine($"Showing: {show.showingName} successfully deleted");
+                                showingController.RemoveShowing(show);  //Call to RemoveShowing method in showing Controller
+                                Console.WriteLine($"Showing: {show.showingName} successfully deleted");  //Console output to User showing was deleted
                             }
-                            else if(show.showingName != removeInput)
+                            else if (show.showingName != removeInput)  //if showingName does not equal the removeInput 
 
                             {
-                                countNotMatching = countNotMatching +1;
+                                countNotMatching = countNotMatching + 1;  //CountNotMatching is 1
                             }
-                            
+
                         }
-                        if(countNotMatching == showingList.Count)                            
+                        if (countNotMatching == showingList.Count)  //if showing list is = to countNotMatching (0)
 
                         {
-                            Console.WriteLine("Showing was not successfully deleted");
+                            Console.WriteLine("Showing was not successfully deleted");  //Then console output to user showing was not deleted
                         }
-
-                        // Console.WriteLine(ViewAllItems(user.userId,1,"Which showing record would you like to delete?"));
-                        // ItemController.RemoveItem(ViewAllItems(user.userId, 1, "Which item/showing would you like to delete?"), user);
+                        
                         break;
 
                     case 4: //Exit program for end user
-                        validInput = true;
-                        Console.WriteLine($"You are now exiting the showing program.");
+                        validInput = true;  //logic for validating whether User input is valid or not
+                        Console.WriteLine($"You are now exiting the showing program.");  //Console output to User they are exiting the program
                         return;
 
                     default:
@@ -93,28 +93,31 @@ public class ShowingMenu
 
                 }
 
-                if(validInput == true)
+                if (validInput == true)
                 {
-                ShowingFunctionMenu(user);
+                    ShowingFunctionMenu(user);  //Calls ShowingFunctionMenu and displays menu to User 
                 }
-            }
-            while (validInput == false);
+
+            } while (validInput == false);
+
         }
+
+
 
         catch (Exception e)
         {
             Console.WriteLine(e.Message);
         }
     }
-    public static Showing NewShowingItem(User user)
+    public static Showing NewShowingItem(User user) //Creat NewShowing Item method with one parameter
     {
-        bool entrySuccess = false;
+        bool entrySuccess = false;  
 
         do
         {
-            try
+            try  
             {
-                string showingAddress;
+                string showingAddress; //declare objects/variables
                 string showingCity;
                 string showingState;
                 string showingZip;
@@ -137,35 +140,36 @@ public class ShowingMenu
                 Console.WriteLine("Please enter the time of your showing, please enter the format ie: 08:00 AM or PM");
                 showingTime = Console.ReadLine().Trim();
                 entrySuccess = true;
-                Showing nShowing = new Showing(user.userId, showingName, showingDate, showingTime, showingAddress, showingCity, showingState, showingZip);
+                Showing nShowing = new Showing(user.userId, showingName, showingDate, showingTime, showingAddress, showingCity, showingState, showingZip);  
+                //Creat new nShowing object with parameters
                 // Guid userId, string showingName, string showingDate, string showingTime, string showingAddress, string showingCity, string showingState, string showingZip
-                return nShowing;
+                return nShowing;  
             }
-            catch (Exception e)
+            catch (Exception e)  //catch any exceptions
             {
-                Console.Clear();
-                Console.WriteLine("Please key in a valid input!");
+                Console.Clear(); //Clears the Console
+                Console.WriteLine("Please key in a valid input!");  //Console output to user to input a valid input
                 return null;
             }
         }
-        while (entrySuccess == false);
+        while (entrySuccess == false);  //do while entrysuccess is false 
     }
 
-    public static void ViewItemMenu(Guid userID)
+    public static void ViewItemMenu(Guid userID)  //Create ViewItemMenu method with a GUID userID parameter
     {
-        Guid userReturnedGuid;
-        bool exitViewMenu = false;
+        Guid userReturnedGuid;  //user GUID declared
+        bool exitViewMenu = false;  //logic for validating whether User exit the program is valid or not
         do
         {
             Console.Clear();
-            Console.WriteLine("Please make a selection");
+            Console.WriteLine("Please make a selection"); //Console output to User to make selection
 
             Console.WriteLine("1. View my Showings");
             Console.WriteLine("2. Back to Main Menu");
-            string userInput = (Console.ReadLine() ?? "").Trim();
-            if (String.IsNullOrEmpty(userInput))
+            string userInput = (Console.ReadLine() ?? "").Trim(); //Reads and trims the userInput
+            if (String.IsNullOrEmpty(userInput))  //verifies if userInput is null or empty
             {
-                Console.WriteLine("Your selection cannot be empty or blank, please enter a number.");
+                Console.WriteLine("Your selection cannot be empty or blank, please enter a number."); //Console output to user to enter a number
                 Console.ReadKey();
                 exitViewMenu = false;
             }
@@ -173,160 +177,42 @@ public class ShowingMenu
             {
                 try
                 {
-                    int userSelection = Convert.ToInt32(userInput);
-                    switch (userSelection)
+                    int userSelection = Convert.ToInt32(userInput);  //create userSelection object and convert userInput to integer
+                    switch (userSelection)  //switch statement and condition used for the two cases and default
                     {
                         case 1:
-                            // userReturnedGuid = ViewAllItems(userID, 1);
-                            // if (userReturnedGuid != Guid.Empty) { ViewShowingItemDetails(userID, userReturnedGuid); }
+                            userReturnedGuid = ViewAllItems(userID, 1);  //ViewAllItems method with 2 parameters
+                            if (userReturnedGuid != Guid.Empty) {ViewShowingItemDetails(userID, userReturnedGuid);}  //conditional logic if userReturnedGuid is not equal to empty
+                            //then ViewShowingItemDetails method is 
                             break;
 
                         case 2:
                             exitViewMenu = true;
                             break;
                         default:
-                            Console.WriteLine("Input not valid, please try again.");
+                            Console.WriteLine("Input not valid, please try again.");  //if input is not valid
                             Console.ReadKey();
-                            exitViewMenu = false;
-                            break;
+                            exitViewMenu = false;  
+                            break; //exits and breaks out
                     }
                 }
-                catch (Exception e)
+                catch (Exception e)  //handles exception
                 {
-                    Console.WriteLine(e.Message);
+                    Console.WriteLine(e.Message);  //Console output of exception
                     Console.WriteLine(e.StackTrace.ToString());
                     Console.ReadKey();
                 }
             }
-        } while (!exitViewMenu);
+        } while (!exitViewMenu);  //do while loop until exitViewMenu is not valid
     }
 
-    // public static Guid ViewAllItems(Guid userID, int abbreviatedList = 0, string messageToUser = "Which item would you like to view?")
-    // {
-    //     // List<Item> allMyItems = ItemController.GetAllItems(userID);
-    //     if (allMyItems.Count() < 1)
-    //     {
-    //         Console.WriteLine("You have nothing...");
-    //         Console.ReadKey();
-    //     }
-    //     else
-    //     {
-    //         bool exitView = false;
-    //         do
-    //         {
-    //             Console.Clear();
-    //             int loopCount = 1;
-    //             foreach (Item item in allMyItems)
-    //             {
-    //                 if (abbreviatedList == 0)
-    //                 {
-    //                     Console.WriteLine(item);
-    //                 }
-    //                 else
-    //                 {
-    //                     Console.WriteLine($"{loopCount}: {item.AbbrToString()}");
-    //                 }
-    //                 loopCount++;
-    //             }
-    //             Console.WriteLine($"{loopCount}: Exit");
-    //             Console.WriteLine(messageToUser);
-    //             string userInput = (Console.ReadLine() ?? "").Trim();
-    //             try
-    //             {
-    //                 int userChoice = Convert.ToInt32(userInput);
-    //                 if (userChoice == loopCount)
-    //                 {
-    //                     exitView = true;
-    //                 }
-    //                 else if (userChoice <= allMyItems.Count() && userChoice > 0)
-    //                 {
-    //                     return allMyItems[userChoice - 1].itemId;
-    //                 }
-    //                 else
-    //                 {
-    //                     Console.WriteLine("Wut? Pick a number from the list");
-    //                     Console.ReadKey();
-    //                     exitView = false;
-    //                 }
-    //             }
-    //             catch (Exception e)
-    //             {
-    //                 Console.WriteLine("Try picking a NUMBER from the provided list.");
-    //                 Console.ReadKey();
-    //                 exitView = false;
-    //             }
-    //         } while (!exitView);
-    //     }
-    //     return Guid.Empty;
-    // }
+    private static Guid ViewAllItems(Guid userID, int v)  //Create ViewAllItems method of GUID type
+    {
+        throw new NotImplementedException();  //throws exception error
+    }
 
-    // public static Guid ViewMyItems(Guid userID, int abbreviatedList = 0, string messageToUser = "Which item would you like to view?")
-    // {
-    //     List<Item> allMyItems = ItemController.GetItems(userID);
-    //     if (allMyItems.Count() < 1)
-    //     {
-    //         Console.WriteLine("You have nothing...");
-    //         Console.ReadKey();
-    //     }
-    //     else
-    //     {
-    //         bool exitView = false;
-    //         do
-    //         {
-    //             Console.Clear();
-    //             int loopCount = 1;
-    //             foreach (Item item in allMyItems)
-    //             {
-    //                 if (abbreviatedList == 0)
-    //                 {
-    //                     Console.WriteLine(item);
-    //                 }
-    //                 else
-    //                 {
-    //                     Console.WriteLine($"{loopCount}: {item.AbbrToString()}");
-    //                 }
-    //                 loopCount++;
-    //             }
-    //             Console.WriteLine($"{loopCount}: Exit");
-    //             Console.WriteLine(messageToUser);
-    //             string userInput = (Console.ReadLine() ?? "").Trim();
-    //             try
-    //             {
-    //                 int userChoice = Convert.ToInt32(userInput);
-    //                 if (userChoice == loopCount)
-    //                 {
-    //                     exitView = true;
-    //                 }
-    //                 else if (userChoice <= allMyItems.Count() && userChoice > 0)
-    //                 {
-    //                     return allMyItems[userChoice - 1].itemId;
-    //                 }
-    //                 else
-    //                 {
-    //                     Console.WriteLine("Wut? Pick a number from the list");
-    //                     exitView = false;
-    //                 }
-    //             }
-    //             catch (Exception e)
-    //             {
-    //                 Console.WriteLine("Try picking a NUMBER from the provided list.");
-    //                 exitView = false;
-    //             }
-    //         } while (!exitView);
-    //     }
-    //     return Guid.Empty;
-    // }
-
-
-    // public static void ViewShowingItemDetails(Guid userID, Guid itemID)
-    // {
-    //     List<Item> allMyItems = ItemController.GetAllItems(userID);
-    //     Console.Clear();
-    //     var SpecificItem = allMyItems.Where(x => x.itemId.Equals(itemID));
-    //     foreach (var thing in SpecificItem)
-    //     {
-    //         Console.WriteLine(thing);
-    //     }
-    //     Console.ReadKey();
-    // }
+    private static void ViewShowingItemDetails(Guid userID, Guid userReturnedGuid)  //Create ViewShowingItemDetails with two GUID parameters, userID and userReturnedGuid
+    {
+        throw new NotImplementedException();  //Exception thrown 
+    }
 }

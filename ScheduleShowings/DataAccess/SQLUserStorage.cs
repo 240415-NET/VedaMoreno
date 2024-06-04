@@ -100,7 +100,7 @@ public class SQLUserStorage  //This class holds the functionality for finding, s
                             VALUES (@userId, @userName);";
 
         //We use the connection we created and opened, as well as the command text template we created above
-        //to create a new SqlCommand object that we will eventually send to do stuff on our database. 
+        //to create a new SqlCommand object that we will eventually send to do things in our SQL database. 
         using SqlCommand cmd= new SqlCommand(cmdText, connection);
 
         //Now that we have our SqlCommand object, in this case named cmd, we can call a method AddWithValue()

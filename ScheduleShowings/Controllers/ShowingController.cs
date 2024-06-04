@@ -9,26 +9,27 @@ using ScheduleShowings.Data;
 namespace ScheduleShowings.Controllers;
 
 
-public class ShowingController
+public class ShowingController  
+//This class holds the functionality for controlling the various methods being used by the Presentation layer and the accessing of the Showing data at the Data layer for finding, adding, storing, and removing Showing data  
 {
-    public static SQLShowingStorage showingData = new SQLShowingStorage();
+    public static SQLShowingStorage showingData = new SQLShowingStorage();  //create new SQLUserStorage object and assign it showingData
 
-    //created a SQL showing storage object, this object has a method called FindShowing
-    //that takes in a parameter of Guid Id
-    public List<Showing> FindShowingForUser(Guid userId)
+    
+    public List<Showing> FindShowingForUser(Guid userId)  //creat a List of FindShowingForUser method with one GUID parameter
+    
     {
-        List<Showing> showings = showingData.FindShowing(userId);
-        return showings;
+        List<Showing> showings = showingData.FindShowing(userId);  //Create a list of showings object when FindShowing method is called and receiving one argument
+        return showings;  //returns list of showings to User
     }
 
-    public void AddShowing(Showing newShowing)
+    public void AddShowing(Showing newShowing)  //AddShowing method which takes in one argument
     {
-        showingData.StoreShowing(newShowing);
+        showingData.StoreShowing(newShowing);  //Calls StoreShowing method which takes in one argument and stores showing in Showing Storage/SQL DB
     }
    
-   public void RemoveShowing(Showing removeShowing)
+   public void RemoveShowing(Showing removeShowing)  //RemoveShowing method which takes in one argument
     {
-        showingData.RemoveShowing(removeShowing);
+        showingData.RemoveShowing(removeShowing);  //Calls RemoveShowing method and removes Showing from Showing Storage/SQL DB
         
     }
 }
