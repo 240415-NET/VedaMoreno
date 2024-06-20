@@ -26,7 +26,9 @@ function ComponentOne() {
             <br />
             {/*Inside of return component, it expects HTML.  
             We can break out of our HTML and call upon TypeScript by using braces {}*/}
-            <p>Count: {count}</p>            
+            <p>Count: {count}</p>    
+            <button onClick={increment}>Increment the count </button> 
+            <button onClick={decrement}>Decrement the count </button>       
         </div>
 
     );
